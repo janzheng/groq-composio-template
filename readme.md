@@ -1,4 +1,4 @@
-# Groq x Composio: AI-Powered GitHub Repository Analysis
+# AI-Powered GitHub Repository Analysis
 
 **Intelligent GitHub repository analysis and starring using Groq's lightning-fast LLMs with Composio's seamless GitHub integration - automatically discover and star valuable repositories in milliseconds.**
 
@@ -14,9 +14,7 @@ This application demonstrates intelligent GitHub repository analysis using Groq'
 - **Lightning-Fast Analysis:** Powered by Groq's `llama-3.1-8b-instant` model for sub-second repository evaluation
 - **Intelligent Repository Assessment:** Analyzes README content, repository metadata, and project quality indicators  
 - **Automated GitHub Actions:** Seamlessly stars repositories based on AI recommendations via Composio
-- **Production-Ready Integration:** Built with LangChain orchestration and enterprise-grade error handling
 - **Smart Decision Making:** Evaluates usefulness, innovation, documentation quality, and developer value
-- Sub-second response times, efficient concurrent request handling, and production-grade performance powered by Groq
 
 ## Architecture
 
@@ -51,8 +49,6 @@ This application demonstrates intelligent GitHub repository analysis using Groq'
    ```env
    GROQ_API_KEY=your-groq-api-key-here
    COMPOSIO_API_KEY=your-composio-api-key-here
-   # Optional: Custom GitHub integration ID
-   COMPOSIO_GITHUB_ID=your-github-integration-id
    ```
 
 4. **Connect your GitHub account**
@@ -67,10 +63,9 @@ This application demonstrates intelligent GitHub repository analysis using Groq'
    npm run analyze
    
    # Analyze a specific repository using command-line arguments
-   node main.js --owner groqinc --repo groq-python
+   node main.js --owner janzheng --repo groq-composio-template
    
    # Or use the predefined scripts
-   npm run analyze:groq        # Analyzes groqinc/groq-python
    npm run analyze:langchain   # Analyzes langchain-ai/langchain  
    npm run analyze:composio    # Analyzes ComposioHQ/composio
    ```
@@ -103,105 +98,44 @@ If the AI recommends starring, the system automatically stars the repository via
 ## Example Output
 
 ```bash
-🎯 Analyzing repository: groqinc/groq-python
+🎯 Analyzing repository: janzheng/groq-composio-template
 🔄 Fetching GitHub tools from Composio...
 ✅ Retrieved 45 GitHub tools
 
 🎉 Repository Details:
-📦 Name: groq-python
-👤 Owner: groqinc
-📝 Description: The official Python library for the Groq API
-🌟 Stars: 1,234
-🍴 Forks: 156
-📅 Created: 2024-01-15T10:30:00Z
+📦 Name: groq-composio-template
+👤 Owner: janzheng
+📝 Description: LLM-based GitHub repo analysis with Groq and Composio
+🌟 Stars: 1
+🍴 Forks: 999999
+📅 Created: 1998-01-15T10:30:00Z
 
-🧠 LLM Analysis:
-This is the official Python library for Groq API with comprehensive 
-documentation, examples, and active maintenance. It provides essential 
-tooling for Python developers working with Groq's inference platform. 
-The high star count and official status indicate strong community trust 
-and reliability.
-
-🎯 LLM Decision: STAR
-📝 Reason: Official library, excellent documentation, high community 
-engagement, and essential for Python developers using Groq
-
-⭐ LLM recommends starring! Proceeding to star...
-🌟 Repository starred successfully based on LLM recommendation!
+...
 ```
 
 ## Customization
 
-This template is designed to be a foundation for intelligent GitHub automation. Key areas for customization:
+You can easily customize this template by modifying:
 
-- **Analysis Criteria**: Modify the prompt in `main.js` to focus on specific repository qualities
-- **Model Selection**: Update the Groq model configuration for different speed/accuracy tradeoffs
-- **Actions**: Extend beyond starring to include forking, issue creation, or team notifications
-- **Batch Processing**: Add functionality to analyze multiple repositories simultaneously
+- **Analysis Criteria**: Edit the prompt in `main.js` to focus on different repository qualities
+- **Model Settings**: Change the Groq model or temperature settings for different behavior
+- **Repository Target**: Use command-line arguments to analyze any repository
 
-## Advanced Features
+## Usage Examples
 
-### Multi-Repository Analysis
-Analyze multiple repositories using command-line arguments:
 ```bash
-# Analyze multiple repositories in sequence
+# Analyze different repositories
 node main.js --owner microsoft --repo vscode
 node main.js --owner vercel --repo next.js
 node main.js --owner facebook --repo react
-
-# Or create custom npm scripts in package.json
-npm run analyze:vscode    # Custom script for microsoft/vscode
-npm run analyze:nextjs    # Custom script for vercel/next.js
 ```
-
-You can also extend the script programmatically:
-```js
-const repositories = [
-  { owner: "microsoft", repo: "vscode" },
-  { owner: "vercel", repo: "next.js" }
-];
-
-for (const { owner, repo } of repositories) {
-  console.log(`Analyzing ${owner}/${repo}...`);
-  // Set toolInput and run analysis
-}
-```
-
-### Custom Scoring
-Implement weighted scoring based on specific criteria important to your organization.
-
-### Integration with CI/CD
-Use this as part of automated workflows to curate high-quality dependencies and tools.
-
-## Next Steps
-
-### For Developers
-- **Create your free GroqCloud account**: Access official API docs, the playground for experimentation, and more resources via [Groq Console](https://console.groq.com)
-- **Build and customize**: Fork this repo and start customizing to build out your own AI-powered GitHub automation
-- **Explore Composio**: Check out [Composio's documentation](https://docs.composio.dev) for more GitHub integrations and tools
-- **Get support**: Connect with other developers building on Groq, chat with our team, and submit feature requests on our [Groq Developer Forum](https://community.groq.com)
-
-### For Founders and Business Leaders
-- **See enterprise capabilities**: This template showcases production-ready AI that can automate repository curation and developer workflow optimization at scale
-- **Discuss your needs**: [Contact our team](https://groq.com/enterprise-access/) to explore how Groq can accelerate your AI initiatives and development workflows
 
 ## Technical Details
 
-### Model Performance
-- **Model**: `llama-3.1-8b-instant` - Optimized for speed and accuracy
+- **Model**: `llama-3.1-8b-instant` for fast, consistent analysis
 - **Response Time**: Sub-second analysis for typical repositories
-- **Temperature**: 0 for consistent, deterministic decisions
-
-### Error Handling
-- Comprehensive environment variable validation
-- Graceful fallbacks for missing README files
-- Robust GitHub API error handling
-- Clear user guidance for setup issues
-
-### Security
-- API keys stored in environment variables
-- No sensitive data logged or exposed
-- Secure GitHub OAuth flow via Composio
+- **Error Handling**: Graceful handling of missing files and API issues
+- **Security**: API keys stored securely in environment variables
 
 ## Troubleshooting
 
@@ -211,10 +145,16 @@ Use this as part of automated workflows to curate high-quality dependencies and 
 
 **Missing README**: The system gracefully handles repositories without README files.
 
+## Next Steps
+
+- **Get started**: [Sign up for a free Groq account](https://console.groq.com) to get your API key
+- **Learn more**: Check out [Composio's documentation](https://docs.composio.dev) for more GitHub integrations
+- **Customize**: Fork this repo and modify the analysis criteria for your needs
+
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Credits
 
-Created by Jan Zheng for Groq, powered by Composio's GitHub integration and LangChain orchestration.
+Created by Jan Zheng.

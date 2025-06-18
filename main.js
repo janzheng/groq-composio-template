@@ -7,8 +7,8 @@ import { LangchainToolSet } from "composio-core";
 
 // Parse command line arguments for owner and repo
 const args = process.argv.slice(2);
-let owner = "groq";
-let repo = "groq-python";
+let owner = "janzheng";
+let repo = "groq-composio-template";
 
 // Check for owner and repo arguments
 for (let i = 0; i < args.length; i++) {
@@ -46,13 +46,6 @@ if (!process.env.GROQ_API_KEY) {
   process.exit(1);
 }
 
-// GitHub integration ID is optional - will use default if not provided
-if (process.env.COMPOSIO_GITHUB_ID) {
-  console.log('✅ Using custom GitHub integration ID');
-} else {
-  console.log('ℹ️ Using default GitHub integration ID');
-}
-
 console.log('✅ Environment variables found');
 
 // Initialize the LangchainToolSet with the API key from environment variables
@@ -60,39 +53,6 @@ const toolset = new LangchainToolSet({
   apiKey: process.env.COMPOSIO_API_KEY,
   baseUrl: "https://backend.composio.dev"
 });
-
-// Check if we need to set up GitHub connection
-console.log('🔍 Checking GitHub connection status...');
-try {
-  const integration = await toolset.integrations.get({
-    integrationId: process.env.COMPOSIO_GITHUB_ID || '2a22d508-3566-44ab-a526-6b83b0619034'
-  });
-  
-  console.log('GitHub integration found:', integration.name);
-  console.log('Connections:', integration.connections?.length || 0);
-  
-  // If no connections, initiate the connection process
-  if (!integration.connections || integration.connections.length === 0) {
-    console.log('🔗 No GitHub connection found. Initiating connection...');
-    
-    const expectedInputFields = await toolset.integrations.getRequiredParams(integration.id);
-    console.log('Required auth fields:', expectedInputFields);
-    
-    const connectedAccount = await toolset.connectedAccounts.initiate({
-      integrationId: integration.id,
-      entityId: 'default',
-    });
-    
-    console.log('🌐 Please visit this URL to connect your GitHub account:');
-    console.log(connectedAccount.redirectUrl);
-    console.log('\nAfter connecting, restart the application.');
-    process.exit(0);
-  } else {
-    console.log('✅ GitHub connection exists');
-  }
-} catch (error) {
-  console.error('❌ Error checking GitHub integration:', error.message);
-}
 
 // Fetch tools configured for GitHub applications
 console.log('🔄 Fetching GitHub tools from Composio...');
