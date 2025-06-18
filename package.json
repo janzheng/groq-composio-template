@@ -1,0 +1,12 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@langchain/groq": "^0.2.3",
+    "composio-core": "^0.5.39",
+    "dotenv": "^16.5.0",
+    "langchain": "^0.3.28"
+  },
+  "scripts": {
+    "start": "node main.js"
+  }
+}
