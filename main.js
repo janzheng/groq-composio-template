@@ -5,6 +5,23 @@ dotenv.config();
 import { ChatGroq } from "@langchain/groq";
 import { LangchainToolSet } from "composio-core";
 
+// Parse command line arguments for owner and repo
+const args = process.argv.slice(2);
+let owner = "groq";
+let repo = "groq-python";
+
+// Check for owner and repo arguments
+for (let i = 0; i < args.length; i++) {
+  if (args[i] === '--owner' && args[i + 1]) {
+    owner = args[i + 1];
+    i++; // Skip next argument as it's the value
+  } else if (args[i] === '--repo' && args[i + 1]) {
+    repo = args[i + 1];
+    i++; // Skip next argument as it's the value
+  }
+}
+
+console.log(`🎯 Analyzing repository: ${owner}/${repo}`);
 
 // Creating an instance of ChatGroq with specific model and temperature settings
 const llm = new ChatGroq({
@@ -12,7 +29,11 @@ const llm = new ChatGroq({
   temperature: 0,
 });
 
-console.log(`[LLM Model]`, llm.modelName);
+// GitHub Owner and Repo to be starred
+const toolInput = {
+  owner: owner,
+  repo: repo
+};
 
 // Check for required environment variables
 if (!process.env.COMPOSIO_API_KEY) {
@@ -98,26 +119,28 @@ try {
   
   console.log('✅ Found GITHUB_GET_A_REPOSITORY tool');
   
-  // Call the tool directly
-  const toolInput = {
-    owner: "janzheng",
-    repo: "groq-jigsawstack-template"
-  };
-  
   console.log('🔄 Calling GitHub API with:', toolInput);
   
   const result = await getRepoTool.invoke(toolInput);
   
   console.log('\n🎉 Repository Details:');
+  console.log('Raw API response:', result); // Debug line
+  
   const repoData = JSON.parse(result);
+  console.log('Parsed repo data:', repoData); // Debug line
+  
   if (repoData.data) {
     console.log(`📦 Name: ${repoData.data.name}`);
-    console.log(`👤 Owner: ${repoData.data.owner.login}`);
     console.log(`📝 Description: ${repoData.data.description || 'No description'}`);
     console.log(`🌟 Stars: ${repoData.data.stargazers_count}`);
     console.log(`🍴 Forks: ${repoData.data.forks_count}`);
     console.log(`📅 Created: ${repoData.data.created_at}`);
     console.log(`🔗 URL: ${repoData.data.html_url}`);
+  } else if (repoData.error) {
+    console.error('❌ GitHub API Error:', repoData.error);
+    console.error('Error details:', repoData);
+  } else {
+    console.error('❌ Unexpected response format:', repoData);
   }
   
   // Now let's get the README to let the LLM decide if we should star it

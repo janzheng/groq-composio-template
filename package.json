@@ -7,6 +7,9 @@
     "langchain": "^0.3.28"
   },
   "scripts": {
-    "start": "node main.js"
+    "start": "node main.js",
+    "analyze": "node main.js",
+    "analyze:langchain": "node main.js --owner langchain-ai --repo langchain",
+    "analyze:composio": "node main.js --owner ComposioHQ --repo composio"
   }
 }
