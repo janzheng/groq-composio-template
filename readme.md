@@ -1,6 +1,12 @@
 # AI-Powered GitHub Repository Analysis
+[Composio](https://composio.ai) is a platform for managing and integrating tools with LLMs and AI agents. You can build fast, Groq-based assistants to seamlessly interact with external applications through features including:
 
-**Intelligent GitHub repository analysis and starring using Groq's lightning-fast LLMs with Composio's seamless GitHub integration - automatically discover and star valuable repositories in milliseconds.**
+- **Tool Integration**: Connect AI agents to APIs, RPCs, shells, file systems, and web browsers with 90+ readily available tools
+- **Authentication Management**: Secure, user-level auth across multiple accounts and tools
+- **Optimized Execution**: Improve security and cost-efficiency with tailored execution environments
+- **Comprehensive Logging**: Track and analyze every function call made by your LLMs
+
+This repository demonstrates GitHub repository analysis and starring using Groq LLMs with Composio's GitHub integration - automatically discovers and stars valuable repositories.
 
 ## Live Demo
 
